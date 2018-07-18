@@ -15,10 +15,14 @@ for path in notebook_path_lst:
     with open(path) as notebook:
         notebook_str = notebook.read()
         notebook_json = json.loads(notebook_str)
+
         cells = notebook_json['cells']
         cells_lst += cells
 
+del notebook_json['cells']
+
 target_notebook['cells'] = cells_lst
+target_notebook.update(notebook_json)
 
 # 转化成字符串
 target_notebook_str = json.dumps(target_notebook)
